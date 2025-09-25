@@ -1,5 +1,6 @@
 from numba import prange
 import numpy as np
+from .metrics import SubspaceMetric
 
 
 class SubspaceDistance(object):
