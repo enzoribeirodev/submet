@@ -24,8 +24,12 @@ pip install --upgrade pip
 
 here = path.abspath(path.dirname(__file__))
 
-with open(path.join(here, 'README.rst'), encoding='utf-8') as readme_file:
-    readme = readme_file.read()
+try:
+    with open(path.join(here, 'README.rst'), encoding='utf-8') as readme_file:
+        readme = readme_file.read()
+except FileNotFoundError:
+    with open(path.join(here, 'README.md'), encoding='utf-8') as readme_file:
+        readme = readme_file.read()
 
 with open(path.join(here, 'requirements.txt')) as requirements_file:
     # Parse requirements.txt, ignoring any commented-out lines.
@@ -43,7 +47,7 @@ setup(
     author_email='keschenb@uw.edu',
     url='https://github.com/kristianeschenburg/submet',
     python_requires='>={}'.format('.'.join(str(n) for n in min_version)),
-    packages=find_packages(exclude=['docs', 'tests']),
+    packages=find_packages(exclude=['docs', 'submet/tests']),
     entry_points={
         'console_scripts': [
             # 'command = some.module:some_function',
